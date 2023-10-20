@@ -39,7 +39,7 @@ function handleCancel() {
 
 function handleEdit() {
   isSelected.value = true;
-  console.log(task.title)
+   emit("edit", task)
 
 }
 

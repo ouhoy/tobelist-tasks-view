@@ -1,28 +1,59 @@
-<script setup lang="ts">
-import {addDoc,  collection} from "firebase/firestore";
+<script lang="ts">
 
-import {markRaw, ref} from "vue";
+import {addDoc, collection, doc, updateDoc} from "firebase/firestore";
 import {db} from "@/firebase/config";
 
-const newTask = ref("")
-const method = ref("Add")
-const error = ref("")
-async function handleSubmit() {
-  error.value = ""
-  if (!newTask.value) {
-        error.value = "You need to describe the task first ^^";
+export default {
+  props: {
+    editedTask: {
+      type: Object,
+      required: true,
+    },
+  },
+  data() {
+    return {
+      newTask: '',
+      method: 'Add',
+      error: '',
+    }
+  },
+  watch: {
+    editedTask() {
+      this.method = "Update"
+      this.error = "";
+      this.newTask = this.editedTask?.title
+
+    }
+  },
+  methods: {
+    async handleSubmit() {
+      this.error = ''
+      if (!this.newTask) {
+        this.error = "You need to describe the task first ^^";
         return
       }
-  const collectionReference = collection(db, "tasks");
 
-  await addDoc(collectionReference, {
-    title: newTask.value,
-    complete: false,
+      if (this.method === "add") {
+        const collectionReference = collection(db, "tasks");
 
-  })
-  newTask.value= ""
+        await addDoc(collectionReference, {
+          title: this.newTask,
+          complete: false,
+
+        })
+      }
+
+      if (this.method === "Update") {
+        const docRef = doc(db, "tasks", this.editedTask.id);
+        await updateDoc(docRef, {
+          title: this.newTask,
+        })
+        console.log("Updating")
+      }
+      this.newTask = ''
+    }
+  }
 }
-
 </script>
 
 <template>

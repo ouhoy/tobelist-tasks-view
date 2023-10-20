@@ -3,9 +3,23 @@
 import Task from "@/components/Task.vue";
 import getCollection from "@/composables/getCollection";
 import TaskInput from "@/components/TaskInput.vue";
+import {ref} from "vue";
+
+interface Task {
+  id: string,
+  title: string,
+  complete: boolean
+}
 
 
 const {documents: tasks} = getCollection("tasks")
+const editedTask = ref<Task>({ id: '',
+  title: '',
+  complete: false,})
+
+function handleEdit(task: Task){
+   editedTask.value = task
+}
 </script>
 
 <template>
@@ -13,11 +27,11 @@ const {documents: tasks} = getCollection("tasks")
   <div class="tasks-container">
     <ul class="mt-16 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
 
-      <Task v-for="task in tasks" :task="task"/>
+      <Task v-for="task in tasks" @edit="handleEdit" :task="task"/>
 
 
     </ul>
-    <TaskInput/>
+    <TaskInput :editedTask="editedTask"/>
   </div>
 
 </template>
