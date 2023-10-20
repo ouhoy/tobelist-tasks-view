@@ -2,7 +2,7 @@
 
 import Options from "@/components/Options.vue";
 import {doc, deleteDoc, updateDoc} from "firebase/firestore";
-import {ref} from "vue";
+import {ref, watch} from "vue";
 import {db} from "@/firebase/config";
 
 interface Task {
@@ -43,7 +43,6 @@ function handleEdit() {
 
 }
 
-
 </script>
 
 <template>
@@ -73,7 +72,7 @@ li:last-child {
 input[type="checkbox"] {
   width: 24px;
   height: 24px;
-  border-radius: 25px;
+  border-radius: 100%;
   background-size: 60% !important;
 }
 

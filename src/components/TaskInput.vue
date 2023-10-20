@@ -39,7 +39,6 @@ export default {
         await addDoc(collectionReference, {
           title: this.newTask,
           complete: false,
-
         })
         this.newTask = ''
       }

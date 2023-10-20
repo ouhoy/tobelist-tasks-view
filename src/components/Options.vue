@@ -2,6 +2,7 @@
 
 
 import {ref} from "vue";
+import useClickOutside from "@/composables/useClickOutside";
 
 
 const {isSelected} = defineProps<{
@@ -9,8 +10,12 @@ const {isSelected} = defineProps<{
 }>()
 const emit = defineEmits();
 const showOptions = ref(false);
+const optionsModal = ref(null)
 
 
+useClickOutside(optionsModal, ()=>{
+  showOptions.value = false;
+})
 function handleClick() {
   showOptions.value = !showOptions.value
   if (!showOptions.value) {
@@ -31,7 +36,7 @@ function handleEdit() {
 </script>
 
 <template>
-  <div class="options-container">
+  <div ref="optionsModal" class="options-container">
     <span @click="handleClick" :class="{'show-options-icon':showOptions} "
           class="options-icon  text-gray-500">...</span>
     <div v-if="showOptions" id="dropdown"

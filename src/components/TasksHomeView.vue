@@ -24,12 +24,9 @@ function handleEdit(task: Task){
 
 <template>
 
-  <div class="tasks-container">
-    <ul class="mt-16 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-
+  <div class="tasks-container mt-16 mx-auto">
+    <ul v-if="tasks?.length" class=" text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
       <Task v-for="task in tasks" @edit="handleEdit" :task="task"/>
-
-
     </ul>
     <TaskInput :editedTask="editedTask"/>
   </div>
@@ -40,6 +37,5 @@ function handleEdit(task: Task){
 
 .tasks-container {
   max-width: 768px;
-  margin: 0 auto;
 }
 </style>
