@@ -41,6 +41,7 @@ export default {
           complete: false,
 
         })
+        this.newTask = ''
       }
 
       if (this.method === "update") {
@@ -48,9 +49,12 @@ export default {
         await updateDoc(docRef, {
           title: this.newTask,
         })
-        console.log("Updating")
+        this.newTask = ''
+        this.method= "add"
+
       }
-      this.newTask = ''
+
+
     }
   }
 }
@@ -60,7 +64,7 @@ export default {
   <form class="mt-2.5" @submit.prevent="handleSubmit">
     <div class="relative">
 
-      <input type="search" id="default-search"
+      <input type="search" id="default-search" autocomplete="nope"
              class="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
              placeholder="Task of the day..." v-model="newTask">
 
