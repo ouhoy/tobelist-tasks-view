@@ -13,13 +13,13 @@ export default {
   data() {
     return {
       newTask: '',
-      method: 'Add',
+      method: 'add',
       error: '',
     }
   },
   watch: {
     editedTask() {
-      this.method = "Update"
+      this.method = "update"
       this.error = "";
       this.newTask = this.editedTask?.title
 
@@ -43,7 +43,7 @@ export default {
         })
       }
 
-      if (this.method === "Update") {
+      if (this.method === "update") {
         const docRef = doc(db, "tasks", this.editedTask.id);
         await updateDoc(docRef, {
           title: this.newTask,
@@ -66,7 +66,7 @@ export default {
 
       <button type="submit"
               class="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800  focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-        {{ method }}
+        {{ method[0].toUpperCase() + method.slice(1) }}
       </button>
     </div>
     <p v-if="error" class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-semibold">Oops!</span>
