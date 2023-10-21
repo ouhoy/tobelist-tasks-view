@@ -11,14 +11,17 @@ interface Task {
   complete: boolean
 }
 
-
-const {documents: tasks} = getCollection("tasks")
+const {documents: tasks} = getCollection("tasks", "SJvI31P1pHO1vWjlkdcvbVnoXge2")
 const editedTask = ref<Task>({ id: '',
   title: '',
   complete: false,})
 
 function handleEdit(task: Task){
    editedTask.value = task
+}
+function handleUpdate() {
+  editedTask.value = {title: "", complete: false, id: ""}
+  console.log("Updated")
 }
 </script>
 
@@ -28,7 +31,7 @@ function handleEdit(task: Task){
     <ul v-if="tasks?.length" class=" text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
       <Task v-for="task in tasks" @edit="handleEdit" :task="task"/>
     </ul>
-    <TaskInput :editedTask="editedTask"/>
+    <TaskInput :editedTask="editedTask" @update="handleUpdate"/>
   </div>
 
 </template>
@@ -37,5 +40,6 @@ function handleEdit(task: Task){
 
 .tasks-container {
   max-width: 768px;
+  width: 95%;
 }
 </style>

@@ -24,6 +24,7 @@ function handleClick() {
 }
 
 function handleDelete(){
+  showOptions.value = false;
   emit("delete")
 }
 

@@ -10,6 +10,10 @@ function getCollection<T>(collectionName: string, userUid?: string ) {
     // collection reference
     let collectionReference = collection(db, collectionName);
 
+      if (userUid) {
+        collectionReference = query(collectionReference, where('userId', '==', userUid))
+    }
+
     const unsubscribe = onSnapshot(collectionReference, snapshot => {
         let results: T[] = []
         snapshot.docs.forEach(doc => {

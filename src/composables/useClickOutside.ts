@@ -5,7 +5,7 @@ function useClickOutside(targetElement: Ref, callback: Function) {
     if (!targetElement) return;
     let listener = (e: Event) => {
 
-        //We clicked inside the modal/active region
+        // Clicked inside the modal/active region
         if (e.target === targetElement.value || e.composedPath().includes(targetElement.value)) return;
 
         // Clicked outside the modal

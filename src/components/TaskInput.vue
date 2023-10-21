@@ -22,7 +22,6 @@ export default {
       this.method = "update"
       this.error = "";
       this.newTask = this.editedTask?.title
-
     }
   },
   methods: {
@@ -36,21 +35,22 @@ export default {
       if (this.method === "add") {
         const collectionReference = collection(db, "tasks");
 
-        await addDoc(collectionReference, {
+         addDoc(collectionReference, {
           title: this.newTask,
           complete: false,
+          userId: "SJvI31P1pHO1vWjlkdcvbVnoXge2"
         })
         this.newTask = ''
       }
 
       if (this.method === "update") {
         const docRef = doc(db, "tasks", this.editedTask.id);
-        await updateDoc(docRef, {
+         updateDoc(docRef, {
           title: this.newTask,
         })
         this.newTask = ''
         this.method= "add"
-
+        this.$emit("update")
       }
 
 
