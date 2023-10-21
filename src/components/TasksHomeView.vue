@@ -21,7 +21,6 @@ function handleEdit(task: Task){
 }
 function handleUpdate() {
   editedTask.value = {title: "", complete: false, id: ""}
-  console.log("Updated")
 }
 </script>
 

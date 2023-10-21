@@ -48,9 +48,9 @@ export default {
          updateDoc(docRef, {
           title: this.newTask,
         })
+        this.$emit("update")
         this.newTask = ''
         this.method= "add"
-        this.$emit("update")
       }
 
 
